@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace rpg_rewrite.Models.Item
 {
-    public class Weapon : Item
+    public class Weapon : Items.Item
     {
         public List<string> AllowedClasses { get; set; }
         public int Damage { get; set; }

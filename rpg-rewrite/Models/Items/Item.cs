@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace rpg_rewrite.Models.Item
+namespace rpg_rewrite.Models.Items
 {
     public abstract class Item
     {
         public string Name { get; set; }
         public string Description { get; set; }
+
         public Item() { }
         public Item(string name, string description)
         {

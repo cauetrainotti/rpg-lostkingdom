@@ -9,7 +9,7 @@ namespace rpg_rewrite.Models
         Purpur = 2
     }
 
-    public class Potion : Item.Item
+    public class Potion : Items.Item
     {
         public PotionType Type { get; set; }
         public int HealthRegen { get; set; }
