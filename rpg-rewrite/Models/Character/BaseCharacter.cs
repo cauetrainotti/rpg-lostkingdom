@@ -13,27 +13,28 @@ namespace rpg_rewrite.Models.Character
         public int Level { get; set; }
         public int XPperLevel = 100;
         public int XP { get; set; }
-        public Classes CharacterClass { get; set; }
+        public Class CharacterClass { get; set; }
 
         private const int BaseConstitution = 1;
         private const int BaseDexterity = 1;
         private const int BaseStrength = 1;
         private const int BaseIntelligence = 1;
 
-        public int TotalConstitution => BaseConstitution + CharacterClass.BonusCON;
-        public int TotalDexterity => BaseDexterity + CharacterClass.BonusDEX;
-        public int TotalStrength => BaseStrength + CharacterClass.BonusSTR;
-        public int TotalIntelligence => BaseIntelligence + CharacterClass.BonusINT;
+        public int TotalConstitution => BaseConstitution + CharacterClass.BonusCON + EquippedWeapon.BonusCON;
+        public int TotalDexterity => BaseDexterity + CharacterClass.BonusDEX + EquippedWeapon.BonusDEX;
+        public int TotalStrength => BaseStrength + CharacterClass.BonusSTR + EquippedWeapon.BonusSTR;
+        public int TotalIntelligence => BaseIntelligence + CharacterClass.BonusINT + EquippedWeapon.BonusINT;
 
         public int CurrentConstitution { get; set; }
 
-        public Weapon EquippedWeapon { get; private set; }
+        public Weapon EquippedWeapon { get; set; }
 
-        public BaseCharacter(string name)
+        public BaseCharacter(string name, ClassType classType)
         {
             Name = name;
             Level = 1;
             XP = 0;
+            CharacterClass = new Class(classType);
             CurrentConstitution = TotalConstitution;
         }
     }

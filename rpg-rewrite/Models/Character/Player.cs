@@ -1,4 +1,5 @@
-﻿using System;
+﻿using rpg_rewrite.Models.Item;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,9 +10,7 @@ namespace rpg_rewrite.Models.Character
     internal class Player : BaseCharacter
     {
         public List<Items.Item> Inventory { get; private set; } = new List<Items.Item>();
-        public Player(string name) : base(name)
-        {
-        }
+        public Player(string name, ClassType classType) : base(name, classType) { }
 
         public void GetXP(int xpQuantity)
         {
@@ -29,6 +28,7 @@ namespace rpg_rewrite.Models.Character
             XP -= XPperLevel;
             Level++;
         }
+
         public void GetItem(Items.Item item)
         {
             Inventory.Add(item);
@@ -36,6 +36,10 @@ namespace rpg_rewrite.Models.Character
         public void RemoveItem(Items.Item item)
         {
             Inventory.Remove(item);
+        }
+        public void EquipWeapon(Weapon weapon)
+        {
+            EquippedWeapon = weapon;
         }
     }
 }

@@ -8,6 +8,7 @@ namespace rpg_rewrite.Models.Items
 {
     public abstract class Item
     {
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
 
