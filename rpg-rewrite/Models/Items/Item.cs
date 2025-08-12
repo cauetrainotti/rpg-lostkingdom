@@ -1,4 +1,5 @@
-﻿using System;
+﻿using rpg_rewrite.Models.Character;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,6 +20,24 @@ namespace rpg_rewrite.Models.Items
             Description = description;
             Id = _IdCounter;
             _IdCounter++;
+        }
+
+        public Items.Item RewardRoll(Player player, bool isAlive)
+        {
+            int xpAmount;
+            Item droppedItem;
+
+            if (isAlive)
+            {
+                xpAmount = new Random().Next(20, 50);
+                player.GetXP(xpAmount);
+
+                bool gotDrops = new Random().Next(100) < 60 ? true : false;
+                if (gotDrops)
+                {
+
+                }
+            }
         }
     }
 }
