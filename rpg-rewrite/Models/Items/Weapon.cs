@@ -20,7 +20,7 @@ namespace rpg_rewrite.Models.Item
         }
     }
     public class ArmaForte : Weapon
-    {
+    { 
         public ArmaForte(string name, string description, List<ClassType> allowedClasses) : base(name, description, allowedClasses)
         {
             BonusSTR = 100;

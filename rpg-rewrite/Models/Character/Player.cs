@@ -9,8 +9,14 @@ namespace rpg_rewrite.Models.Character
 {
     internal class Player : BaseCharacter
     {
+        public int XP { get; set; }
+        public int XPperLevel = 100;
+
         public List<Items.Item> Inventory { get; private set; } = new List<Items.Item>();
-        public Player(string name, ClassType classType) : base(name, classType) { }
+        public Player(string name, ClassType classType) : base(name, classType)
+        {
+            XP = 0;
+        }
 
         public void GetXP(int xpQuantity)
         {

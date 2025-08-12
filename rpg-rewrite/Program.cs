@@ -10,6 +10,9 @@ static void Main()
         ClassType.Mage
     };
     Weapon armaForte = new ArmaForte("arma forte", "forte", classes);
+    Weapon armaForte2 = new ArmaForte("arma forte", "forte", classes);
+    Console.WriteLine(armaForte.Id);
+    Console.WriteLine(armaForte2.Id);
     Player player = new Player("Cauê", ClassType.Mage);
     Console.WriteLine(player.TotalStrength);
     player.EquipWeapon(armaForte);

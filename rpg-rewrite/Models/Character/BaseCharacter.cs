@@ -12,7 +12,6 @@ namespace rpg_rewrite.Models.Character
         public string Name { get; set; }
         public int Level { get; set; }
         public int XPperLevel = 100;
-        public int XP { get; set; }
         public Class CharacterClass { get; set; }
 
         private const int BaseConstitution = 1;
@@ -27,13 +26,12 @@ namespace rpg_rewrite.Models.Character
 
         public int CurrentConstitution { get; set; }
 
-        public Weapon EquippedWeapon { get; set; }
+        public Weapon? EquippedWeapon { get; set; }
 
         public BaseCharacter(string name, ClassType classType)
         {
             Name = name;
             Level = 1;
-            XP = 0;
             CharacterClass = new Class(classType);
             CurrentConstitution = TotalConstitution;
         }
