@@ -11,7 +11,6 @@ namespace rpg_rewrite.Models.Character
     {
         public string Name { get; set; }
         public int Level { get; set; }
-        public int XPperLevel = 100;
         public Class CharacterClass { get; set; }
 
         private const int BaseConstitution = 1;
@@ -34,6 +33,10 @@ namespace rpg_rewrite.Models.Character
             Level = 1;
             CharacterClass = new Class(classType);
             CurrentConstitution = TotalConstitution;
+        }
+        public BaseCharacter(string name, ClassType classType, int level) : this (name, classType)
+        {
+            Level = level;
         }
     }
 }

@@ -21,6 +21,7 @@ namespace rpg_rewrite.Models
             Name = SetName(type);
             Description = SetDescription(type);
             Type = type;
+            AllowDuplicates = true;
         }
 
         public void SetAttributes(PotionType type)

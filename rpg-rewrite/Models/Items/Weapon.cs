@@ -17,6 +17,7 @@ namespace rpg_rewrite.Models.Item
 
         public Weapon(string name, string description, List<ClassType> allowedClasses) : base(name, description)
         {
+            AllowDuplicates = false;
         }
     }
     public class ArmaForte : Weapon
