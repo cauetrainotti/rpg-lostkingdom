@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace rpg_rewrite.Models.Character
 {
-    internal class Player : BaseCharacter
+    public class Player : BaseCharacter
     {
         public int XP { get; set; }
         public int XPperLevel = 100;

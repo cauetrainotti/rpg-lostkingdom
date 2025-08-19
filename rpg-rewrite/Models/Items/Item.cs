@@ -9,8 +9,14 @@ namespace rpg_rewrite.Models.Items
 {
     public abstract class Item
     {
+        static public List<Item> ItemList = new List<Item>
+        {
+
+        };
+
         public int Id { get; set; }
         public string Name { get; set; }
+        public int Level { get; set; }
         public string Description { get; set; }
         public bool AllowDuplicates { get; set; }
         public static int _IdCounter = 0;
@@ -21,24 +27,6 @@ namespace rpg_rewrite.Models.Items
             Description = description;
             Id = _IdCounter;
             _IdCounter++;
-        }
-
-        public Items.Item RewardRoll(Player player, bool isAlive)
-        {
-            int xpAmount;
-            Item droppedItem;
-
-            if (isAlive)
-            {
-                xpAmount = new Random().Next(20, 50);
-                player.GetXP(xpAmount);
-
-                bool gotDrops = new Random().Next(100) < 60 ? true : false;
-                if (gotDrops)
-                {
-
-                }
-            }
         }
     }
 }
