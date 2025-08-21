@@ -16,7 +16,6 @@ namespace rpg_rewrite.Models.Items
 
         public int Id { get; set; }
         public string Name { get; set; }
-        public int Level { get; set; }
         public string Description { get; set; }
         public bool AllowDuplicates { get; set; }
         public static int _IdCounter = 0;

@@ -8,18 +8,30 @@ using System.Threading.Tasks;
 
 namespace rpg_rewrite.Models.Item
 {
+    public enum AttributeType
+    {
+        STR,
+        DEX,
+        CON,
+        INT
+    }
     public class Weapon : Items.Item
     {
         public int Level { get; set; }
+        public AttributeType BonusAttribute { get; set; }
         public List<ClassType> AllowedClasses { get; set; }
-        public int BonusSTR => BaseBonusSTR + (Level * 4);
-        public int BonusDEX { get; set; }
-        public int BonusCON { get; set; }
-        public int BonusINT { get; set; }
+        private const int FlatBonus = 10;
+        public int Bonus => FlatBonus + (Level * 5);
 
-        public Weapon(string name, string description, List<ClassType> allowedClasses, int playerLevel) : base(name, description)
+        public int BonusSTR => BonusAttribute == AttributeType.STR ? Bonus : 0;
+        public int BonusDEX => BonusAttribute == AttributeType.DEX ? Bonus : 0;
+        public int BonusCON => BonusAttribute == AttributeType.CON ? Bonus : 0;
+        public int BonusINT => BonusAttribute == AttributeType.INT ? Bonus : 0;
+
+        public Weapon(string name, string description, List<ClassType> allowedClasses, int playerLevel, AttributeType bonusAttribute) : base(name, description)
         {
             Level = LevelRangeRandomizer(playerLevel);
+            BonusAttribute = bonusAttribute;
             AllowDuplicates = false;
         }
         private int LevelRangeRandomizer(int playerLevel)
@@ -30,9 +42,8 @@ namespace rpg_rewrite.Models.Item
 
         public class ArmaForte : Weapon
         {
-            public ArmaForte(string name, string description, List<ClassType> allowedClasses, int playerLevel) : base(name, description, allowedClasses, playerLevel)
+            public ArmaForte(string name, string description, List<ClassType> allowedClasses, int playerLevel, AttributeType bonusAttribute) : base(name, description, allowedClasses, playerLevel, bonusAttribute)
             {
-                BaseBonus = 100;
             }
         }
     }

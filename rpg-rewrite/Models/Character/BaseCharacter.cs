@@ -10,22 +10,20 @@ namespace rpg_rewrite.Models.Character
     public abstract class BaseCharacter
     {
         public string Name { get; set; }
-        public int Level { get; set; }
         public Class CharacterClass { get; set; }
 
-        private const int BaseConstitution = 1;
-        private const int BaseDexterity = 1;
-        private const int BaseStrength = 1;
-        private const int BaseIntelligence = 1;
+        private const int BaseStats = 1;
 
-        public int TotalConstitution => BaseConstitution + CharacterClass.BonusCON + EquippedWeapon.BonusCON;
-        public int TotalDexterity => BaseDexterity + CharacterClass.BonusDEX + EquippedWeapon.BonusDEX;
-        public int TotalStrength => BaseStrength + CharacterClass.BonusSTR + EquippedWeapon.BonusSTR;
-        public int TotalIntelligence => BaseIntelligence + CharacterClass.BonusINT + EquippedWeapon.BonusINT;
+        public int TotalConstitution => (BaseStats + CharacterClass.BonusCON + (EquippedWeapon?.BonusCON ?? 0)) * 5;
+        public int TotalDexterity => BaseStats + CharacterClass.BonusDEX + (EquippedWeapon?.BonusDEX ?? 0);
+        public int TotalStrength => BaseStats + CharacterClass.BonusSTR + (EquippedWeapon?.BonusSTR ?? 0);
+        public int TotalIntelligence => BaseStats + CharacterClass.BonusINT + (EquippedWeapon?.BonusINT ?? 0);
 
         public int CurrentConstitution { get; set; }
+        public bool IsAlive => CurrentConstitution > 0;
 
         public Weapon? EquippedWeapon { get; set; }
+        public int Level { get; set; }
 
         public BaseCharacter(string name, ClassType classType)
         {
@@ -37,6 +35,15 @@ namespace rpg_rewrite.Models.Character
         public BaseCharacter(string name, ClassType classType, int level) : this (name, classType)
         {
             Level = level;
+        }
+
+        public int CalculateDamage()
+        {
+            switch (this)
+            {
+                case this.CharacterClass.Type == ClassType.Warrior:
+                    return
+            }
         }
     }
 }

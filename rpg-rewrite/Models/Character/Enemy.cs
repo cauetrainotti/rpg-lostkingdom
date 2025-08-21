@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace rpg_rewrite.Models.Character
 {
-    internal class Enemy
+    public class Enemy : BaseCharacter
     {
+        public Enemy()
+        {
+
+        }
     }
 }

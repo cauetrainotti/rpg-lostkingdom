@@ -1,4 +1,5 @@
 ﻿using rpg_rewrite.Models.Character;
+using rpg_rewrite.Models.Item;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,25 +43,59 @@ namespace rpg_rewrite.Models.CombatRelated
         {
             return RandomGenerator.Next(100) > DropChancePercent;
         }
+
         private string? GiveItemDrop(Player player)
         {
+            if (!HasAvailableItems())
+                return "No available item in the item list.";
+
             int dropAmount = RandomGenerator.Next(1, 3);
+
             for (int i = 0; i < dropAmount; i++)
             {
                 Items.Item droppedItem = ItemRandomizer();
 
-                if (player.Inventory.Contains(droppedItem))
-                {
-                    return $"You dropped {droppedItem.Name}, but you already have it.";
-                }
-                else
-                {
-                    player.Inventory.Add(droppedItem);
-                    return $"You dropped: Level {droppedItem.Level} {droppedItem.Name}";
-                }
+                if (PlayerAlreadyHasNonPotion(player, droppedItem))
+                    return GetAlreadyOwnedMessage(droppedItem);
+
+                Items.Item createdItem = CreateNewItem(droppedItem);
+                player.Inventory.Add(createdItem);
+
+                return GetDropMessage(createdItem);
             }
+
             return null;
         }
+
+        private bool HasAvailableItems()
+        {
+            return Items.Item.ItemList.Count > 0;
+        }
+
+        private bool PlayerAlreadyHasNonPotion(Player player, Items.Item droppedItem)
+        {
+            return player.Inventory.Contains(droppedItem) && droppedItem is not Potion;
+        }
+
+        private Items.Item CreateNewItem(Items.Item droppedItem)
+        {
+            return (Items.Item)Activator.CreateInstance(droppedItem.GetType());
+        }
+
+        private string GetAlreadyOwnedMessage(Items.Item droppedItem)
+        {
+            return $"You dropped {droppedItem.Name}, but you already have it.";
+        }
+
+        private string GetDropMessage(Items.Item item)
+        {
+            return item switch
+            {
+                Weapon weapon => $"You dropped: Level {weapon.Level} {weapon.Name}",
+                _ => $"You dropped {item.Name}"
+            };
+        }
+
         private Items.Item ItemRandomizer()
         {
             int index = RandomGenerator.Next(0, Items.Item.ItemList.Count);

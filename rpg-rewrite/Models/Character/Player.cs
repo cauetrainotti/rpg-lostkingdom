@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Security;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,7 +11,7 @@ namespace rpg_rewrite.Models.Character
     public class Player : BaseCharacter
     {
         public int XP { get; set; }
-        public int XPperLevel = 100;
+        public int XPperLevel => 100 + (Level * 10);
 
         public List<Items.Item> Inventory { get; private set; } = new List<Items.Item>();
         public Player(string name, ClassType classType) : base(name, classType)
