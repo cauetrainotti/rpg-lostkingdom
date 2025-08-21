@@ -14,13 +14,14 @@ namespace rpg_rewrite.Models.Character
 
         private const int BaseStats = 1;
 
-        public int TotalConstitution => (BaseStats + CharacterClass.BonusCON + (EquippedWeapon?.BonusCON ?? 0)) * 5;
+        public int TotalConstitution => (BaseStats + CharacterClass.BonusCON + (EquippedWeapon?.BonusCON ?? 0));
         public int TotalDexterity => BaseStats + CharacterClass.BonusDEX + (EquippedWeapon?.BonusDEX ?? 0);
         public int TotalStrength => BaseStats + CharacterClass.BonusSTR + (EquippedWeapon?.BonusSTR ?? 0);
         public int TotalIntelligence => BaseStats + CharacterClass.BonusINT + (EquippedWeapon?.BonusINT ?? 0);
 
-        public int CurrentConstitution { get; set; }
-        public bool IsAlive => CurrentConstitution > 0;
+        public int TotalHealth => TotalConstitution * 10;
+        public int CurrentHealth { get; set; }
+        public bool IsAlive => CurrentHealth > 0;
 
         public Weapon? EquippedWeapon { get; set; }
         public int Level { get; set; }
@@ -30,7 +31,7 @@ namespace rpg_rewrite.Models.Character
             Name = name;
             Level = 1;
             CharacterClass = new Class(classType);
-            CurrentConstitution = TotalConstitution;
+            CurrentHealth = TotalHealth;
         }
         public BaseCharacter(string name, ClassType classType, int level) : this (name, classType)
         {
@@ -39,10 +40,20 @@ namespace rpg_rewrite.Models.Character
 
         public int CalculateDamage()
         {
-            switch (this)
+            switch (this.CharacterClass.Type)
             {
-                case this.CharacterClass.Type == ClassType.Warrior:
-                    return
+                case ClassType.Warrior:
+                    return TotalStrength;
+                case ClassType.Mage:
+                    return TotalIntelligence;
+                case ClassType.Tank:
+                    return TotalConstitution / 2;
+                case ClassType.Assassin:
+                    return TotalDexterity + TotalStrength;
+                case ClassType.Archer:
+                    return TotalDexterity;
+                default:
+                    return TotalStrength;
             }
         }
     }
